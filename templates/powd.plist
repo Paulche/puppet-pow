@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string><%= scope.lookupvar('pow::config::service_powd_name') %></string>
+        <key>ProgramArguments</key>
+        <array>
+              <string><%= scope.lookupvar('pow::config::node_path') %></string>
+              <string><%= scope.lookupvar('pow::config::pow_path') %></string>
+        </array>
+        <key>KeepAlive</key>
+        <true/>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>StandardErrorPath</key>
+        <string><%= scope.lookupvar('pow::config:logdir') %>/pow.err.log</string>
+        <key>StandardOutPath</key>
+        <string><%= scope.lookupvar('pow::config::logdir') %>/pow.out.log</string>
+</dict>
+</plist>
