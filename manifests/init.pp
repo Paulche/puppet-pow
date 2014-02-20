@@ -3,9 +3,17 @@
 # Usage:
 #
 #     include pow
+
+#
+# TODO :
+#   Hack pow's packages.json to nack 0.16. 
+#   npm update after that 
+#   `open http://gitlab.dev/` for test
+#
+
 class pow {
   
-  include pow::config
+  include config
 
   $home = "/Users/${::boxen_user}"
 
