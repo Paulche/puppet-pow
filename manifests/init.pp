@@ -32,7 +32,7 @@ class pow {
   }
 
   file { $pow::config::logdir:
-    ensure => present,
+    ensure => directory,
   }
 
   file { 'firewall_plist':
