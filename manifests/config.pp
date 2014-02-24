@@ -9,5 +9,5 @@ class pow::config {
   $firewall_plist   = "/Library/LaunchDaemons/${service_firewall_name}.plist"
   $powd_plist       = "${home}/Library/LaunchAgents/${service_powd_name}.plist"
   
-  $pow_path    = "${boxen::config::homebrewdir}/bin/node"
+  $pow_path    = "${boxen::config::homebrewdir}/bin/pow"
 }
