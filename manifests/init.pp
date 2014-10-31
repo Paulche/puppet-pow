@@ -8,8 +8,8 @@ class pow(
   $log_dir = $pow::config::log_dir,
   $dns_port = $pow::config::dns_port,
   $http_port = $pow::config::http_port,
-  $dst_port = $pow::config::dst_port,
   $domains = $pow::config::domains,
+  $dst_port = undef,
   $ext_domains = undef,
   $timeout = undef,
   $workers = undef,
@@ -18,6 +18,16 @@ class pow(
 ) inherits pow::config {
     include boxen::config
     include homebrew::config
+
+    # Dst port
+    $real_dst_port = $dst_port ? {
+      undef   => $nginx_proxy ? {
+        true    => $pow::config::dst_port,
+        false   => 80,
+        default => $pow::config::dst_port,
+      },
+      default => $dst_port,
+    }
 
     # Current user
     $current_user = $::boxen_user
@@ -94,8 +104,8 @@ class pow(
     # Create a firewall rule to redirect from $dst_port to $http_port
     else{
       $firewall_update_cmd =  $::macosx_productversion ? {
-        '10.10'         => "echo 'rdr pass proto tcp from any to any port {${dst_port},${http_port}} -> 127.0.0.1 port ${http_port}' | pfctl -a 'com.apple/250.PowFirewall' -Ef -",
-        /10\.[7-9]/     => "ipfw add fwd 127.0.0.1,${http_port} tcp from any to me dst-port ${dst_port} in",
+        '10.10'         => "echo 'rdr pass proto tcp from any to any port {${real_dst_port},${http_port}} -> 127.0.0.1 port ${http_port}' | pfctl -a 'com.apple/250.PowFirewall' -Ef -",
+        /10\.[7-9]/     => "ipfw add fwd 127.0.0.1,${http_port} tcp from any to me dst-port ${real_dst_port} in",
       }
 
       # Install our custom plist for pow firewall.

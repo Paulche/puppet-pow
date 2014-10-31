@@ -4,7 +4,7 @@
 <%= "export POW_LOG_ROOT=#{@log_dir}\n" if @log_dir -%>
 <%= "export POW_HTTP_PORT=#{@http_port}\n" if @http_port -%>
 <%= "export POW_DNS_PORT=#{@dns_port}\n" if @dns_port -%>
-<%= "export POW_DST_PORT=#{@dst_port}\n" if @dst_port -%>
+<%= "export POW_DST_PORT=#{@real_dst_port}\n" if @real_dst_port -%>
 <%= "export POW_DOMAINS=#{@domains.gsub(/\s+/, "")}\n" if @domains -%>
 <%= "export POW_EXT_DOMAINS=#{@ext_domains.gsub(/\s+/, "")}\n" if @ext_domains -%>
 <%= "export POW_TIMEOUT=#{@timeout}\n" if @timeout -%>
